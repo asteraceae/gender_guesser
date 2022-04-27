@@ -1,17 +1,18 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[81]:
+# In[13]:
 
 
 import pandas as pd
 import numpy as np
 import gensim
+import re
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 
 
-# In[45]:
+# In[3]:
 
 
 with open("/Users/evepalmer/Desktop/data.csv", "r+", errors = 'ignore') as f:
@@ -25,36 +26,20 @@ with open("/Users/evepalmer/Desktop/data.csv", "r+", errors = 'ignore') as f:
 df.head()
 
 
-# In[30]:
+# In[6]:
 
 
 df['gender'].isnull().sum()
 # we have a lot of null rows
-df = df[df['gender'].notna()]
 
 
-# In[75]:
+# In[5]:
 
 
 df.dropna()
 
 
-# In[35]:
-
-
-# needs adjusting
-hyperparams = {'window_size': 2, 'n': 10, 'epochs': 50, 'learning_rate': 0.01}
-
-
-# In[41]:
-
-
-w2vec = Word2Vec()
-# adjust hyperparams
-train = Word2Vec(sentences = corpus, vector_size=100, window=5, min_count=1, workers=4)
-
-
-# In[42]:
+# In[11]:
 
 
 # do we need to do a better job of cleaning to get rid of photo links/deal with hashtags ?
@@ -65,7 +50,7 @@ def cleanText(text):
     return lowered.strip()
 
 
-# In[76]:
+# In[14]:
 
 
 X,y = np.asarray(df["text"]),np.asarray(df["gender"])
@@ -74,7 +59,7 @@ X_clean = [cleanText(t) for t in X]
 X_clean[:4]
 
 
-# In[77]:
+# In[15]:
 
 
 label_map = {cat:index for index,cat in enumerate(np.unique(y))}
@@ -83,21 +68,21 @@ y_prep = np.asarray([label_map[l] for l in y])
 label_map
 
 
-# In[78]:
+# In[17]:
 
 
-X_tokenized = [[w for w in sentence.split(" ") if w != ""] for sentence in X_cleaned]
+X_tokenized = [[w for w in sentence.split(" ") if w != ""] for sentence in X_clean]
 X_tokenized[0]
 
 
-# In[79]:
+# In[18]:
 
 
 # adjust hyperparams?
 model = gensim.models.Word2Vec(X_tokenized, vector_size=100)
 
 
-# In[69]:
+# In[19]:
 
 
 # class for text to word embedding sequences
@@ -166,7 +151,7 @@ class Sequencer():
         return np.asarray(vec).flatten()      
 
 
-# In[87]:
+# In[ ]:
 
 
 sequencer = Sequencer(all_words = [token for seq in X_tokenized for token in seq],
@@ -181,27 +166,21 @@ sequencer = Sequencer(all_words = [token for seq in X_tokenized for token in seq
 X_vecs = np.asarray([sequencer.textToVector(" ".join(seq)) for seq in X_tokenized])
 
 
-# In[90]:
+# In[93]:
 
 
-X_train, X_test, y_train, y_test = train_test_split(X_vecs, y_prep, test_size = 0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X_vecs, y_prep, test_size = 0.2, random_state = 42)
 
 
-# In[91]:
+# In[94]:
 
 
 svm_classifier = SVC()
 svm_classifier.fit(X_train, y_train)
 
 
-# In[92]:
+# In[97]:
 
 
 svm_classifier.score(X_test, y_test)
-
-
-# In[ ]:
-
-
-
 
