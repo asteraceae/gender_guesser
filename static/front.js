@@ -1,20 +1,17 @@
-//const python = require("python-bridge");
-//let py = python();
-
 var input = document.getElementById("txtbox");
 
 let guesser = {
     predict: function(text){
+        //var json = {"text": text}
         $.ajax({
             type: "POST",
-            url: "./test.py",
-            data: {param: text},
+            url: "/model",
+            data: text,
             success: this.displayResult
         });
     },
     displayResult: function(response){
-        console.log(response);
-        document.querySelector(".result").innerText = response;
+        document.querySelector(".result").innerText = "The author is likely to be: " + response;
     }
 };
 

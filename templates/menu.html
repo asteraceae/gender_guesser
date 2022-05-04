@@ -8,8 +8,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">  
-        <link rel = "stylesheet" href = "./main.css">
-        <script src = "./front.js" defer></script>
+        <link rel = "stylesheet" href= "{{ url_for('static',filename='styles/main.css') }}">
+        <script src ="{{ url_for('static',filename='front.js') }}" defer></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
 <body>
@@ -26,7 +26,7 @@
         <textarea id= "txtbox" rows="10" cols="50">
             </textarea>
             <br><br>
-        <div class= "result">.</div><br>
+        <div class= "result"></div><br>
         <button class = "button-reset">Reset box</button>
         <button class = "button-submit">Submit</button>
     </div>
