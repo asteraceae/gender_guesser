@@ -1,25 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gender Guesser</title>
-
-    <link rel="stylesheet" href="main.css">
-    <script type="text/javascript" src="front.js"></script> 
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" href="#">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Gender Guesser</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">  
+        <link rel = "stylesheet" href = "./main.css">
+        <script src = "./front.js" defer></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
 <body>
-    <center>
-    <h1>Gender Guesser</h1>
-    <p> Type in the box to get a guess of the author's gender.</p>
-    <!--<a href = "http://www.hackerFactor.com/GenderGuesser.php">Hackerfactor</a><br>-->
-    <textarea id="input" name="input" rows="10" cols="50">
-        </textarea>
-        <br><br>
-    <a id= "result"></a><br>
-    <button class = "button-reset">Reset box</a>
-    <button class = "button-submit">Submit</a>
-    </center>
+    <div class = "card-popup">
+        <div id="confirm">
+            <div class="message">This is a warning message.</div><br>
+            <button class="yes">OK</button>
+        </div>
+    </div>
+    <div class = "card">
+        <h1>Gender Guesser</h1>
+        <p> Type in the box to get a guess of the author's gender.</p>
+        <!--<a href = "http://www.hackerFactor.com/GenderGuesser.php">Hackerfactor</a><br>-->
+        <textarea id= "txtbox" rows="10" cols="50">
+            </textarea>
+            <br><br>
+        <div class= "result">.</div><br>
+        <button class = "button-reset">Reset box</button>
+        <button class = "button-submit">Submit</button>
+    </div>
 </body>
-<script src="front.js"></script>
 </html>
